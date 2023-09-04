@@ -58,12 +58,12 @@ function Leases() {
           </p>
         </div>
       </div>
-      <div className="flex justify-center items-center md:px-10 mt-[5%]">
-        <div>
+      <div className="flex flex-col md:flex-row justify-center items-center px-2 md:px-10 mt-[5%]">
+        <div className='md:w-1/2 mb-4 md:mb-0'>
           <h1 className='text-2xl font-bold'> Docking Available Leases in Umeå</h1>
-          <p className='w-1/2 text-lg '>Explore available rental docking spaces for your convenience. write abaout some rules and regulation or procedure</p>
+          <p className='md:w-1/2 text-lg '>Explore available rental docking spaces for your convenience. write abaout some rules and regulation or procedure</p>
         </div>
-        <div className='w-1/2 flex justify-end items-end'>
+        <div className='md:w-1/2 flex justify-end items-end'>
           <button className="bg-[#1a1a64] text-white active:bg-[#1a1a1a] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
             onClick={() => setShowModal(true)} >
             Add New Leasing
@@ -153,7 +153,7 @@ function Leases() {
         </>
       ) : null
       }
-      <div className='flex flex-col justify-center mb-[8%] mt-[2%] px-10'>
+      <div className='flex flex-col justify-center mb-[8%] mt-[2%] px-2 md:px-10 overflow-x-auto' style={{ maxWidth: '100vw' }}>
         <table>
           <thead className="">
             <tr className="bg-[#ebe5e5]">
