@@ -1,35 +1,26 @@
-"use client"
-import Link from 'next/link';
-import React, { SyntheticEvent, useState } from 'react';
-import { FaFacebookF, FaLinkedinIn,  FaGoogle, FaEnvelope } from 'react-icons/fa';
-import { MdLockOutline} from 'react-icons/md';
-import {signIn} from 'next-auth/react';
 import type { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
-import { getCsrfToken } from "next-auth/react";
-import { getServerSideProps } from '../auth/Page';
-const Page = ({ csrfToken }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+import { getCsrfToken } from "next-auth/react"
+import Link from "next/link";
+import { FaEnvelope, FaFacebookF, FaGoogle, FaLinkedinIn } from "react-icons/fa";
+import { MdLockOutline } from "react-icons/md";
 
-    const submit = async (e: SyntheticEvent) => {
-        e.preventDefault(); // Prevent form submission and page refresh
-
-        try {
-            console.log('signin submit');
-            alert('sk')
-            const res = await signIn('credentials', {
-                email: email,
-                password: password,
-                redirect: false, // Prevent automatic redirection
-              });
-          console.log(res);
-        } catch (error) {
-            console.error('Error during login:', error);
-        }
-    };
-
-    return (
-        <main className='flex flex-col items-center justify-center w-full flex-1 text-center min-h-screen py-2 bg-[#faf7f2]   '>
+export default function Page({ csrfToken }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  return <>
+    {/* <main className='flex flex-col items-center justify-center w-full flex-1 text-center min-h-screen py-2 bg-[#faf7f2]   '>
+    <form method="post" action="/api/auth/callback/credentials">
+      <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+      <label>
+        Username
+        <input name="username" type="text"  className='bg-[#edf2f7] outline-none text-sm flex-1  ' />
+      </label>
+      <label>
+        Password
+        <input name="password" type="password" />
+      </label>
+      <button type="submit">Sign in</button>
+    </form>
+    </main> */}
+    <main className='flex flex-col items-center justify-center w-full flex-1 text-center min-h-screen py-2 bg-[#faf7f2]   '>
         <div className="relative h-[400px] flex bg-cover bg-center text-primary opacity-90" style={{ backgroundImage: "url('/images/docks.jpg')" }}>
     <div className="absolute inset-0 bg-optional opacity-60"></div> {/* Semi-dark overlay */}
     <div className="relative  z-10 flex flex-col items-center justify-center">
@@ -39,9 +30,10 @@ const Page = ({ csrfToken }: InferGetServerSidePropsType<typeof getServerSidePro
       </p>
     </div>
   </div>
-        <form onSubmit={submit}>
+  <form method="post" action="/api/auth/callback/credentials">
+      <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
             
-        <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+        
             <div className='bg-primary flex flex-col md:flex-row rounded-2xl shadow-2xl my-20  md:w-full md:max-w-4xl '>
 
 {/* sign in section */}
@@ -78,12 +70,12 @@ const Page = ({ csrfToken }: InferGetServerSidePropsType<typeof getServerSidePro
 
                 <div className='bg-[#edf2f7] w-64 p-2 flex items-center mb-3s mb-3'>
                 <FaEnvelope className='text-[#a0aec0] mr-2'/>
-                <input type='email' name='email' placeholder='Email' onChange={e => setEmail(e.target.value)} className='bg-[#edf2f7] outline-none text-sm flex-1  '/>
+                <input type='text' name='username' placeholder='username'  className='bg-[#edf2f7] outline-none text-sm flex-1  '/>
                 </div>
 
                 <div className='bg-[#edf2f7] w-64 p-2 flex items-center '>
                 <MdLockOutline  className='text-[#a0aec0] mr-2'/>
-                <input type='password' name='password' placeholder='Password'  onChange={e => setPassword(e.target.value)} className='bg-[#edf2f7] outline-none text-sm flex-1  '/>
+                <input type='password' name='password' placeholder='Password'  className='bg-[#edf2f7] outline-none text-sm flex-1  '/>
                 </div>
 
                 <div className='flex w-64 mb-5 justify-between mt-2 md:mt-0'>
@@ -110,14 +102,13 @@ const Page = ({ csrfToken }: InferGetServerSidePropsType<typeof getServerSidePro
 </div>
         </form>
         </main>
-    );
-};
+  </>
+}
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-    return {
-      props: {
-        csrfToken: await getCsrfToken(context),
-      },
-    }
+  return {
+    props: {
+      csrfToken: await getCsrfToken(context),
+    },
   }
-export default Page;
+}

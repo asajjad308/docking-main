@@ -18,7 +18,7 @@ const Page = () => {
         e.preventDefault(); // Prevent form submission and page refresh
 
         try {
-            const response = await fetch('http://localhost:5000/api/Users/RegisterUser', {
+            const response = await fetch('http://localhost:7064/api/Users/RegisterUser', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -31,8 +31,8 @@ const Page = () => {
                     lastName,
                     gender,
                     address,
-                    userAvatar,
-                    companyId
+                    userAvatar
+                    
                 })
             });
 

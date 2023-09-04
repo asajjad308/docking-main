@@ -1,29 +1,49 @@
-import CredentialsProvider from "next-auth/providers/credentials"
+import CredentialsProvider from "next-auth/providers/credentials";
 import NextAuth, { NextAuthOptions } from "next-auth";
 
 const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt'
   },
+  jwt: {
+    secret: "tothemarsandbeyond",
+   
+},
   providers: [
     CredentialsProvider({
       type: 'credentials',
       credentials: {
-        // We can use the default next auth credentials form using this
-        // email: {label: 'Email', type: 'email', placeholder: 'example@email.com'},
-        // password: {label: 'Password', type: 'password'},
+        // Your form fields (e.g., email and password) should go here
+        // email: { label: 'Email', type: 'email', placeholder: 'example@email.com' },
+        // password: { label: 'Password', type: 'password' },
       },
-      authorize: (credentials, req) => {
-        const { email, password } = credentials as { email: string, password: string }
-        // Perform your login logic 
-        // Find out user from db
+      authorize: async (credentials, req) => {
+        const { username, password } = credentials as { username: string, password: string };
+     
+        console.log('hello')
+        // Make a POST request to your authentication endpoint with credentials
+        const response = await fetch("https://localhost:7064/api/Users/AuthenticateUser", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        
+          body: JSON.stringify({
+            userName: username,
+            password: password,
+          }),
+        });
 
-        if (email != "admin@email.com" || password != "123456") {
+        console.log(response)
+        if (response.ok) {
+          // Authentication succeeded; parse and return the user data
+          const user = await response.json();
+          alert(response)
+          return user;
+        } else {
+          // Authentication failed; return null
           return null;
         }
-
-        // if everyting is fine
-        return {id: '1234', name: 'John Doe', email: 'admin@email.com'}
       }
     })
   ],
@@ -32,43 +52,6 @@ const authOptions: NextAuthOptions = {
     // error: '/error',
     // signOut: '/signout'
   }
-}
+};
+
 export default NextAuth(authOptions);
-
-
-// providers: [
-//   CredentialsProvider({
-//     // The name to display on the sign in form (e.g. 'Sign in with...')
-//     name: 'Credentials',
-//     // The credentials is used to generate a suitable form on the sign in page.
-//     // You can specify whatever fields you are expecting to be submitted.
-//     // e.g. domain, username, password, 2FA token, etc.
-//     // You can pass any HTML attribute to the <input> tag through the object.
-//     credentials: {
-//       username: { label: "Username", type: "text", placeholder: "jsmith" },
-//       password: { label: "Password", type: "password" }
-//     },
-//     async authorize(credentials, req) {
-
-//       // You need to provide your own logic here that takes the credentials
-//       // submitted and returns either a object representing a user or value
-//       // that is false/null if the credentials are invalid.
-//       // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
-//       // You can also use the `req` object to obtain additional parameters
-//       // (i.e., the request IP address)
-//       const res = await fetch("/your/endpoint", {
-//         method: 'POST',
-//         body: JSON.stringify(credentials),
-//         headers: { "Content-Type": "application/json" }
-//       })
-//       const user = await res.json()
-
-//       // If no error and we have user data, return it
-//       if (res.ok && user) {
-//         return user
-//       }
-//       // Return null if user data could not be retrieved
-//       return null
-//     }
-//   })
-// ]
