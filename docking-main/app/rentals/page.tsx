@@ -1,9 +1,9 @@
 'use client'
-import { useState } from 'react';
+import React, { useState } from 'react';
 import propertyData from '../data/page';
 
 
-function Leases() {
+function Rentals() {
   const [showModal, setShowModal] = useState(false);
   const [address, setAddress] = useState('');
   const [location, setLocation] = useState('');
@@ -40,11 +40,11 @@ function Leases() {
         console.log('Product added successfully');
         // You can handle success or navigation here
       } else {
-        console.error('Failed to add product');
+        console.error('Failed to add rental');
         // You can handle failure here
       }
     } catch (error) {
-      console.error('Error while adding product:', error);
+      console.error('Error while adding rental:', error);
     }
   };
   return (
@@ -58,7 +58,7 @@ function Leases() {
           </p>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row justify-center items-center px-2 md:px-10 mt-[5%]">
+      <div className="flex flex-col justify-center items-center px-2 md:px-10 mt-[5%]">
         <div className='md:w-1/2 mb-4 md:mb-0'>
           <h1 className='text-2xl font-bold'> Docking Available Leases in Umeå</h1>
           <p className='md:w-1/2 text-lg '>Explore available rental docking spaces for your convenience. write abaout some rules and regulation or procedure</p>
@@ -66,22 +66,21 @@ function Leases() {
         <div className='md:w-1/2 flex justify-end items-end'>
           <button className="bg-[#1a1a64] text-white active:bg-[#1a1a1a] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
             onClick={() => setShowModal(true)} >
-            Add New Leasing
+            Add New Rental
           </button>
         </div>
       </div>
       {showModal ? (
         <>
           <div
-            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-          >
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold">
-                    Add New Leasing
+                    Add New Rental
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -94,9 +93,7 @@ function Leases() {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <div>
-                    <h2>Add Product</h2>
-                  </div>
+                  <h2 className='font-bold text-xl'>Add Rental</h2>
                 </div>
                 <form className="w-full max-w-lg px-4" onSubmit={handleSubmit}>
                   <div className="flex flex-wrap -mx-3 mb-6">
@@ -143,7 +140,7 @@ function Leases() {
                       className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setShowModal(false)} >
                       Close
                     </button>
-                    <button type='submit' className='bg-[#1a1a64] text-white active:bg-[#1a1a1a] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'>Add Product</button>
+                    <button type='submit' className='bg-[#1a1a64] text-white active:bg-[#1a1a1a] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'>Add Rental</button>
                   </div>
                 </form>
               </div>
@@ -153,7 +150,7 @@ function Leases() {
         </>
       ) : null
       }
-      <div className='flex flex-col justify-center mb-[8%] mt-[2%] px-2 md:px-10 overflow-x-auto' style={{ maxWidth: '100vw' }}>
+      <div className='flex flex-col justify-center mb-[8%] mt-[2%] px-2 md:px-10 overflow-x-auto' style={{maxWidth: '100vw'}}>
         <table>
           <thead className="">
             <tr className="bg-[#ebe5e5]">
@@ -193,4 +190,4 @@ function Leases() {
       </div>
     </div >)
 };
-export default Leases 
+export default Rentals;
