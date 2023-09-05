@@ -12,13 +12,13 @@ const Page = () => {
     const [gender, setGender] = useState('');
     const [address, setAddress] = useState('');
     const [userAvatar, setUserAvatar] = useState('');
-    const [companyId, setCompanyId] = useState('');
+     
 
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault(); // Prevent form submission and page refresh
 
         try {
-            const response = await fetch('http://localhost:7064/api/Users/RegisterUser', {
+            const response = await fetch('https://localhost:7064/api/Users/RegisterUser', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -81,7 +81,7 @@ const Page = () => {
                                 <input type='text' name='gender' placeholder='Gender' onChange={e => setGender(e.target.value)} className='bg-[#edf2f7] outline-none text-sm w-64 p-2 mt-3' />
                                 <input type='text' name='address' placeholder='Address' onChange={e => setAddress(e.target.value)} className='bg-[#edf2f7] outline-none text-sm w-64 p-2 mt-3' />
                                 <input type='text' name='userAvatar' placeholder='User Avatar' onChange={e => setUserAvatar(e.target.value)} className='bg-[#edf2f7] outline-none text-sm w-64 p-2 mt-3' />
-                                <input type='text' name='companyId' placeholder='Company ID' onChange={e => setCompanyId(e.target.value)} className='bg-[#edf2f7] outline-none text-sm w-64 p-2 mt-3' />
+                                
                                 <button className='border-2 border-optional text-optional rounded-full px-12 py-2 inline-block font-semi-bold hover:bg-optional hover:text-primary' type="submit">
                                     Sign Up
                                 </button>
