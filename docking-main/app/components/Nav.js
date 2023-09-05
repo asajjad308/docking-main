@@ -1,10 +1,10 @@
 // Nav.js
 
-"use client"
-import React, { useState, useRef } from 'react';
-import Link from 'next/link';
-import Popup from './Popup';
-import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
+"use client";
+import React, { useState, useRef } from "react";
+import Link from "next/link";
+import Popup from "./Popup";
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
 function Nav({ initialActive }) {
   const [toggle, setToggle] = useState(false);
@@ -32,7 +32,7 @@ function Nav({ initialActive }) {
     setActive(ids);
 
     if (navRef.current) {
-      navRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      navRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
@@ -41,10 +41,7 @@ function Nav({ initialActive }) {
       <div className="max-w-[1240px] flex justify-between py-[15px] mx-auto">
         <div className="text-2xl ">My Logo</div>
         {toggle ? (
-          <AiOutlineClose
-            onClick={open}
-            className="text-2xl md:hidden block"
-          />
+          <AiOutlineClose onClick={open} className="text-2xl md:hidden block" />
         ) : (
           <AiOutlineMenu
             onClick={open}
@@ -58,47 +55,47 @@ function Nav({ initialActive }) {
               href="/"
               id="0"
               onClick={change}
-              className={active === 0 ? 'bg-secondary' : ''}
+              className={active === 0 ? "bg-secondary" : ""}
             >
               Home
             </Link>
           </li>
-          <li className=' hover:bg-[#1a1a64] hover:text-primary hover:text-newback hover:border-xl rounded p-2 '>
+          <li className=" hover:bg-[#1a1a64] hover:text-primary hover:border-xl rounded p-2 ">
             <Link
               href="/rentals"
               id="1"
               onClick={change}
-              className={active === 1 ? 'bg-secondary' : ''}
+              className={active === 1 ? "bg-secondary" : ""}
             >
               Docks Rentals
             </Link>
           </li>
-          <li className=' hover:bg-[#1a1a64] hover:text-primary hover:border-xl rounded p-2 '>
+          <li className=" hover:bg-[#1a1a64] hover:text-primary hover:border-xl rounded p-2 ">
             <Link
               href="/leases"
               id="2"
               onClick={change}
-              className={active === 2 ? 'bg-secondary' : ''}
+              className={active === 2 ? "bg-secondary" : ""}
             >
               Moring Leasing
             </Link>
           </li>
-          <li className=' hover:bg-[#1a1a64] hover:text-primary hover:border-xl rounded p-2 '>
+          <li className=" hover:bg-[#1a1a64] hover:text-primary hover:border-xl rounded p-2 ">
             <Link
               href="/contact"
               id="3"
               onClick={change}
-              className={active === 3 ? 'bg-secondary' : ''}
+              className={active === 3 ? "bg-secondary" : ""}
             >
               Contact us
             </Link>
           </li>
-          <li className=' hover:bg-[#1a1a64] hover:text-primary hover:border-xl rounded p-2 '>
+          <li className=" hover:bg-[#1a1a64] hover:text-primary hover:border-xl rounded p-2 ">
             <Link
               href="/about"
               id="4"
               onClick={change}
-              className={active === 4 ? 'bg-secondary' : ''}
+              className={active === 4 ? "bg-secondary" : ""}
             >
               About
             </Link>
@@ -106,17 +103,16 @@ function Nav({ initialActive }) {
         </ul>
 
         <ul className="hidden md:flex text-white gap-10 ">
-        <li className='bg-[#1a1a64] hover:bg-black text-primary hover:text-primary hover:underline hover:border-xl rounded px-4 py-2'>
-        
+          <li className="bg-[#1a1a64] hover:bg-black text-primary hover:text-primary hover:underline hover:border-xl rounded px-4 py-2">
             <Link
-              href="/auth/signin"
+              href="/signin"
               id="5"
               onClick={change}
-              className={active === 5 ? 'bg-secondary' : ''}
+              className={active === 5 ? "bg-secondary" : ""}
             >
               Login
             </Link>
-            </li>
+          </li>
         </ul>
         {/* <ul className="hidden md:flex text-white gap-10 ">
         <li className='bg-[#1a1a64] hover:bg-black text-primary hover:text-primary hover:underline hover:border-xl rounded px-4 py-2'>
@@ -134,7 +130,7 @@ function Nav({ initialActive }) {
         {/* Responsive Menu */}
         <ul
           className={`md:hidden w-full h-screen z-20 text-white fixed bg-black top-[92px] bg-optional text-primary
-          ${toggle ? 'left-[0]' : 'left-[-100%]'}`}
+          ${toggle ? "left-[0]" : "left-[-100%]"}`}
         >
           <li className="p-5">
             <Link
@@ -144,8 +140,8 @@ function Nav({ initialActive }) {
               style={
                 active === 7
                   ? {
-                      color: 'blue', // Set the text color to blue when active
-                      fontWeight: 'bold', // Set the font weight to bold when active
+                      color: "blue", // Set the text color to blue when active
+                      fontWeight: "bold", // Set the font weight to bold when active
                     }
                   : {} // Empty object for non-active links (default styles)
               }
