@@ -21,14 +21,17 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "app/signin/page.tsx", "app/api/auth/[...nextauth]"  ],
+    "**/*.tsx",
+    "app/signin/page.tsx",
+    "app/api/auth/[...nextauth]"
+, "app/components/DataTable.tsx", "app/test/page.tsx"  ],
   "exclude": [
     "node_modules"
   ]

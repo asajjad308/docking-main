@@ -7,8 +7,8 @@ const authOptions: NextAuthOptions = {
   },
   jwt: {
     secret: "tothemarsandbeyond",
-   
-},
+
+  },
   providers: [
     CredentialsProvider({
       type: 'credentials',
@@ -19,26 +19,23 @@ const authOptions: NextAuthOptions = {
       },
       authorize: async (credentials, req) => {
         const { username, password } = credentials as { username: string, password: string };
-     
-        console.log('hello')
         // Make a POST request to your authentication endpoint with credentials
         const response = await fetch("https://localhost:7064/api/Users/AuthenticateUser", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-        
           body: JSON.stringify({
             userName: username,
             password: password,
           }),
         });
 
-        console.log(response)
+        // console.log(response)
         if (response.ok) {
           // Authentication succeeded; parse and return the user data
           const user = await response.json();
-          alert(response)
+          // alert(response)
           return user;
         } else {
           // Authentication failed; return null
@@ -51,6 +48,12 @@ const authOptions: NextAuthOptions = {
     signIn: '/signin',
     // error: '/error',
     // signOut: '/signout'
+  },
+  callbacks: {
+    async session({ session }) {
+      session.user.role = "community_member";
+      return session
+    }
   }
 };
 
