@@ -54,8 +54,8 @@ const Page = () => {
             <div className="relative h-[400px] flex bg-cover bg-center text-primary opacity-90" style={{ backgroundImage: "url('/images/docks.jpg')" }}>
                 <div className="absolute inset-0 bg-optional opacity-60"></div> {/* Semi-dark overlay */}
                 <div className="relative  z-10 flex flex-col items-center justify-center">
-                    <h1 className="text-4xl font-bold mb-4">Login Page</h1>
-                    <p className="text-lg w-[50%] text-center">
+                    <h1 className="text-4xl font-bold mb-4">Registration Page</h1>
+                    <p className="md:text-lg md:w-[50%] text-center">
                         Providing Docking Leasing and Rental Services in Umeå. Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                     </p>
                 </div>
@@ -95,7 +95,7 @@ const Page = () => {
                     <div className='w-full md:w-2/5 bg-[#1a1a64]  text-primary rounded  md:rounded-tr-2xl md:rounded-br-2xl py-36 px-12'>
                         <h2 className='text-3xl font-bold mb-2 '>Hello, David</h2>
                         <div className='border-2 w-10 inline-block mb-2 '></div>
-                        <p className='mb-10'>Already a member? Click here to sign in</p>
+                        <p className='mb-10'>Already a member? Click below to sign in</p>
                         <Link href='/signin' className='border-2 border-primary rounded-full px-12 py-2 inline-block font-semi-bold hover:bg-primary hover:text-optional '>Sign In</Link>
 
                     </div>
@@ -103,8 +103,8 @@ const Page = () => {
             </form>
             {showModal && (
                 <Modal
-                    title="Login Success"
-                    content="You are logged in successfully."
+                    title="Registration Successful"
+                    content="You are registered successfully."
                     setShowModal={setShowModal}
                 />
             )}

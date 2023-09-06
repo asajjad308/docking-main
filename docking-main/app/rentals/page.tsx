@@ -1,10 +1,11 @@
 'use client'
 import { FormEvent, useState, useEffect } from 'react';
 import propertyData from '../data/page';
-import { useSession } from 'next-auth/react';
 import DataModal from '../components/DataModal';
 import $ from 'jquery';
 import 'datatables.net';
+import jwt from 'jwt-decode'
+import Cookies from 'universal-cookie';
 
 function Rentals() {
   useEffect(() => {
@@ -14,7 +15,7 @@ function Rentals() {
       dataTable.destroy();
     }
   }, []);
-
+  const session: User = jwt(new Cookies().get('jwt_authorization'))
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState({ message: '', ok: false });
@@ -31,7 +32,6 @@ function Rentals() {
   const [property, setProperty] = useState(initialPropertyState);
 
   const { address, location, rentPerMonth, spaceNumber, status, contractDate, available, addedDate } = property;
-  const { data: session } = useSession();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -81,7 +81,7 @@ function Rentals() {
             <p className='md:w-1/2 text-lg '>Explore available rental docking spaces for your convenience. write abaout some rules and regulation or procedure</p>
           </div>
           <div className='md:w-1/2 flex justify-end items-end'>
-            {(session?.user?.role == 'community_member') &&
+            {(session?.email == 'zia@gmail.com') &&
               (<button className="bg-[#1a1a64] text-white active:bg-[#1a1a1a] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setShowModal(true)} >Add New Leasing</button>)}
           </div>
         </div>
