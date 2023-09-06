@@ -1,11 +1,10 @@
 'use client'
 import { FormEvent, useState, useEffect } from 'react';
 import propertyData from '../data/page';
-import jwt from 'jwt-decode'
 import DataModal from '../components/DataModal';
 import $ from 'jquery';
 import 'datatables.net';
-import Cookies from 'universal-cookie'
+import getSession from '../../lib/session';
 function Leases() {
   useEffect(() => {
     const dataTable = $('#myTable').DataTable();
@@ -13,9 +12,7 @@ function Leases() {
       dataTable.destroy();
     }
   }, []);
-  const cookies = new Cookies();
-  const token = cookies.get('jwt_authorization');
-  const session: User = jwt(token);
+  const session = getSession();
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState({ message: '', ok: false });
@@ -60,6 +57,9 @@ function Leases() {
       setResponse({ message: "There was an error in adding your product", ok: false });
     }
     setProperty(initialPropertyState);
+    setTimeout(() => {
+      setResponse({ message: '', ok: false })
+    }, 2000)
   };
 
 
@@ -80,8 +80,8 @@ function Leases() {
           <p className='md:w-1/2 text-lg '>Explore available rental docking spaces for your convenience. write abaout some rules and regulation or procedure</p>
         </div>
         <div className='md:w-1/2 flex justify-end items-end'>
-          {(session?.email == 'zia@gmail.com') &&
-            (<button className="bg-[#1a1a64] text-white active:bg-[#1a1a1a] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setShowModal(true)} >Add New Leasing</button>)}
+          {(session && session.email == 'zia@gmail.com') &&
+            (<button className="bg-[#1a1a64] text-white active:bg-[#1a1a1a] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" style={{color: "white"}} onClick={() => setShowModal(true)} >Add New Leasing</button>)}
         </div>
       </div>
       {showModal ? (
