@@ -1,17 +1,19 @@
 "use client"
 import Link from 'next/link';
-import React, { FormEvent, ReactComponentElement, SyntheticEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { FaFacebookF, FaLinkedinIn, FaGoogle, FaEnvelope } from 'react-icons/fa';
 import { MdLockOutline } from 'react-icons/md';
-import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import Modal from '../components/Modal';
+import Cookies from 'universal-cookie';
+
 const Page = () => {
     const [userName, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showModal, setShowModal] = useState(false);
-
-    const submit = async (e: FormEvent) => {
+    const navigate = useRouter();
+    const cookies = new Cookies();
+    const handleSubmission = async (e: FormEvent) => {
         e.preventDefault(); // Prevent form submission and page refresh
         try {
             const response = await fetch('https://localhost:7064/api/Users/AuthenticateUser', {
@@ -28,10 +30,15 @@ const Page = () => {
 
             if (response.ok) {
                 const responseBody = await response.json();
+                const sessionToken = responseBody.accessToken;
+                cookies.set('jwt_authorization', sessionToken)
+
                 setShowModal(true);
                 setTimeout(() => {
                     setShowModal(false);
                 }, 2000);
+                navigate.replace('/');
+
             } else {
                 console.error('Login failed');
             }
@@ -51,7 +58,7 @@ const Page = () => {
                     </p>
                 </div>
             </div>
-            <form onSubmit={submit}>
+            <form onSubmit={handleSubmission}>
                 <div className='bg-primary flex flex-col md:flex-row rounded-2xl shadow-2xl my-20  md:w-full md:max-w-4xl '>
                     {/* sign in section */}
                     <div className='w-full md:w-3/5 p-5 '>
@@ -114,8 +121,8 @@ const Page = () => {
             </form>
             {showModal && (
                 <Modal
-                    title="Login Success"
-                    content="You are logged in successfully."
+                    title="Redirecting.."
+                    content="You are logged in successfully. "
                     setShowModal={setShowModal}
                 />
             )}

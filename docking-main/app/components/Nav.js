@@ -114,19 +114,6 @@ function Nav({ initialActive }) {
             </Link>
           </li>
         </ul>
-        {/* <ul className="hidden md:flex text-white gap-10 ">
-        <li className='bg-[#1a1a64] hover:bg-black text-primary hover:text-primary hover:underline hover:border-xl rounded px-4 py-2'>
-        
-            <Link
-              href="/signup"
-              id="6"
-              onClick={change}
-              className={active === 6 ? 'bg-secondary' : ''}
-            >
-              SignUp
-            </Link>
-            </li>
-        </ul> */}
         {/* Responsive Menu */}
         <ul
           className={`md:hidden w-full h-screen z-20 text-white fixed bg-black top-[92px] bg-optional text-primary
@@ -140,10 +127,10 @@ function Nav({ initialActive }) {
               style={
                 active === 7
                   ? {
-                      color: "blue", // Set the text color to blue when active
-                      fontWeight: "bold", // Set the font weight to bold when active
+                      color: "blue", 
+                      fontWeight: "bold", 
                     }
-                  : {} // Empty object for non-active links (default styles)
+                  : {} 
               }
             >
               Home
