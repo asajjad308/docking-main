@@ -15,10 +15,13 @@ const AddProductForm: React.FC = () => {
         e.preventDefault();
 
         try {
+            const bearerToken = 'yourBearerTokenHere'; // Replace with your actual bearer token
+        
             const response = await fetch('https://localhost:7064/api/Products', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${bearerToken}` // Include the bearer token here
                 },
                 body: JSON.stringify({
                     id: 0,
@@ -32,7 +35,7 @@ const AddProductForm: React.FC = () => {
                     addedDate
                 })
             });
-
+        
             if (response.ok) {
                 console.log('Product added successfully');
                 // You can handle success or navigation here
@@ -43,6 +46,7 @@ const AddProductForm: React.FC = () => {
         } catch (error) {
             console.error('Error while adding product:', error);
         }
+        
     };
 
     return (

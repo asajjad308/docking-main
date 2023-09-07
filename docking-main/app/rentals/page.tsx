@@ -19,6 +19,7 @@ function Rentals() {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState({ message: '', ok: false });
+  const cookies = new Cookies();
   const initialPropertyState = {
     address: '',
     location: '',
@@ -37,12 +38,17 @@ function Rentals() {
     e.preventDefault();
     setLoading(true);
     setResponse({ message: "", ok: false });
+    const jwtAuthorization = cookies.get('jwt_authorization');
+    console.log(jwtAuthorization)
     try {
       const response = await fetch('https://localhost:7064/api/Products', {
         method: 'POST',
+       
+        credentials:'include',
         headers: {
+          'Authorization': `Bearer ${jwtAuthorization}`, // Include the JWT in the Authorization header
           'Content-Type': 'application/json'
-        },
+      },
         body: JSON.stringify({ id: 0, address, location, rentPerMonth, spaceNumber, status, contractDate, available, addedDate })
       });
 

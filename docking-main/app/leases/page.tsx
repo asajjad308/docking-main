@@ -5,6 +5,7 @@ import DataModal from '../components/DataModal';
 import $ from 'jquery';
 import 'datatables.net';
 import getSession from '../../lib/session';
+import Cookies from 'universal-cookie';
 function Leases() {
   useEffect(() => {
     const dataTable = $('#myTable').DataTable();
@@ -16,6 +17,7 @@ function Leases() {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState({ message: '', ok: false });
+  const cookies = new Cookies();
   const initialPropertyState = {
     address: '',
     location: '',
@@ -34,12 +36,16 @@ function Leases() {
     e.preventDefault();
     setLoading(true);
     setResponse({ message: "", ok: false });
+    const jwtAuthorization = cookies.get('jwt_authorization');
     try {
       const response = await fetch('https://localhost:7064/api/Products', {
         method: 'POST',
+        
+        credentials:'include',
         headers: {
+          'Authorization': `Bearer ${jwtAuthorization}`, // Include the JWT in the Authorization header
           'Content-Type': 'application/json'
-        },
+      },
         body: JSON.stringify({ id: 0, address, location, rentPerMonth, spaceNumber, status, contractDate, available, addedDate })
       });
 
@@ -48,7 +54,7 @@ function Leases() {
         setResponse({ message: "Your product has been added successfully.", ok: true });
       } else {
         setLoading(false);
-        console.error('Failed to add product');
+        console.error(response);
         setResponse({ message: "There was an error in adding your product", ok: false });
       }
     } catch (error) {
