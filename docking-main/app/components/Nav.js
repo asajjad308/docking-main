@@ -5,20 +5,19 @@ import React, { useState, useRef } from "react";
 import Link from "next/link";
 import Popup from "./Popup";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import Cookies from 'universal-cookie';
-import getSession, { destorySession } from "../../lib/session";
+import { useSession } from "../context/SessionContext";
+import { destorySession } from "../../lib/session";
 function Nav({ initialActive }) {
   const [toggle, setToggle] = useState(false);
   const [active, setActive] = useState(initialActive);
   const [showPopup, setShowPopup] = useState(false);
   const navRef = useRef(null);
-
+  const session = useSession();
   const open = () => {
     setToggle(!toggle);
   };
   function handleLogout() {
     destorySession();
-
   }
   function showPopupHandler(e) {
     setShowPopup(true);
@@ -39,8 +38,6 @@ function Nav({ initialActive }) {
       navRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
-  const session = getSession();
-  
   return (
     <div className="shadow-lg p-4 font-semibold ">
       <div className="max-w-[1240px] flex justify-between py-[15px] mx-auto">
@@ -52,14 +49,7 @@ function Nav({ initialActive }) {
 
         <ul className="hidden md:flex gap-6 " ref={navRef}>
           <li className=" hover:bg-[#1a1a64] hover:text-primary hover:border-xl rounded p-2  ">
-            <Link
-              href="/"
-              id="0"
-              onClick={change}
-              className={active === 0 ? "bg-secondary" : ""}
-            >
-              Home
-            </Link>
+            <Link href="/" id="0" onClick={change} className={active === 0 ? "bg-secondary" : ""}> Home </Link>
           </li>
           <li className=" hover:bg-[#1a1a64] hover:text-primary hover:border-xl rounded p-2 ">
             <Link
@@ -72,47 +62,34 @@ function Nav({ initialActive }) {
             </Link>
           </li>
           <li className=" hover:bg-[#1a1a64] hover:text-primary hover:border-xl rounded p-2 ">
-            <Link
-              href="/leases"
-              id="2"
-              onClick={change}
-              className={active === 2 ? "bg-secondary" : ""}
+            <Link href="/leases" id="2" onClick={change} className={active === 2 ? "bg-secondary" : ""}
             >
               Moring Leasing
             </Link>
           </li>
           <li className=" hover:bg-[#1a1a64] hover:text-primary hover:border-xl rounded p-2 ">
-            <Link
-              href="/contact"
-              id="3"
-              onClick={change}
-              className={active === 3 ? "bg-secondary" : ""}
+            <Link href="/contact" id="3" onClick={change} className={active === 3 ? "bg-secondary" : ""}
             >
               Contact us
             </Link>
           </li>
           <li className=" hover:bg-[#1a1a64] hover:text-primary hover:border-xl rounded p-2 ">
-            <Link
-              href="/about"
-              id="4"
-              onClick={change}
-              className={active === 4 ? "bg-secondary" : ""}
-            >
+            <Link href="/about" id="4" onClick={change} className={active === 4 ? "bg-secondary" : ""}>
               About
             </Link>
           </li>
         </ul>
 
         <ul className="hidden md:flex text-white gap-10 ">
-          {!session.email ? (<li className="bg-[#1a1a64] hover:bg-black text-primary hover:text-primary hover:underline hover:border-xl rounded px-4 py-2">
+          {(!session?.session.email) ? (<li className="bg-[#1a1a64] hover:bg-black text-primary hover:text-primary hover:underline hover:border-xl rounded px-4 py-2">
             <Link href="/signin" id="5" onClick={change} className={active === 5 ? "bg-secondary" : ""}>
               Login
             </Link>
           </li>) : (
-            <>
-            <li className="hover:bg-black text-black hover:text-[#1a1a64] hover:underline hover:border-xl rounded px-4 py-2">{session.email}</li>
+            <div className="flex">
+            <li className="hover:bg-black text-black hover:text-[#1a1a64] hover:underline hover:border-xl rounded px-4 py-2">{session.session.email}</li>
             <li className="bg-[#1a1a64] hover:bg-black text-primary hover:text-primary hover:underline hover:border-xl rounded px-4 py-2"><button onClick={handleLogout}>Logout</button></li>
-            </>)}
+            </div>)}
         </ul>
         {/* Responsive Menu */}
         <ul
@@ -143,5 +120,4 @@ function Nav({ initialActive }) {
     </div>
   );
 }
-
 export default Nav;
