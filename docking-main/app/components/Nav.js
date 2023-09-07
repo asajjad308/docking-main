@@ -5,7 +5,8 @@ import React, { useState, useRef } from "react";
 import Link from "next/link";
 import Popup from "./Popup";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-
+import Cookies from 'universal-cookie';
+import getSession, { destorySession } from "../../lib/session";
 function Nav({ initialActive }) {
   const [toggle, setToggle] = useState(false);
   const [active, setActive] = useState(initialActive);
@@ -15,7 +16,10 @@ function Nav({ initialActive }) {
   const open = () => {
     setToggle(!toggle);
   };
+  function handleLogout() {
+    destorySession();
 
+  }
   function showPopupHandler(e) {
     setShowPopup(true);
     change(e);
@@ -35,18 +39,15 @@ function Nav({ initialActive }) {
       navRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
-
+  const session = getSession();
+  
   return (
-    <div className="   shadow-lg  p-4 font-semibold ">
+    <div className="shadow-lg p-4 font-semibold ">
       <div className="max-w-[1240px] flex justify-between py-[15px] mx-auto">
         <div className="text-2xl ">My Logo</div>
         {toggle ? (
-          <AiOutlineClose onClick={open} className="text-2xl md:hidden block" />
-        ) : (
-          <AiOutlineMenu
-            onClick={open}
-            className="text-white text-2xl md:hidden block"
-          />
+          <AiOutlineClose onClick={open} className="text-2xl md:hidden block" />) : (
+          <AiOutlineMenu onClick={open} className="text-white text-2xl md:hidden block" />
         )}
 
         <ul className="hidden md:flex gap-6 " ref={navRef}>
@@ -103,16 +104,15 @@ function Nav({ initialActive }) {
         </ul>
 
         <ul className="hidden md:flex text-white gap-10 ">
-          <li className="bg-[#1a1a64] hover:bg-black text-primary hover:text-primary hover:underline hover:border-xl rounded px-4 py-2">
-            <Link
-              href="/signin"
-              id="5"
-              onClick={change}
-              className={active === 5 ? "bg-secondary" : ""}
-            >
+          {!session.email ? (<li className="bg-[#1a1a64] hover:bg-black text-primary hover:text-primary hover:underline hover:border-xl rounded px-4 py-2">
+            <Link href="/signin" id="5" onClick={change} className={active === 5 ? "bg-secondary" : ""}>
               Login
             </Link>
-          </li>
+          </li>) : (
+            <>
+            <li className="hover:bg-black text-black hover:text-[#1a1a64] hover:underline hover:border-xl rounded px-4 py-2">{session.email}</li>
+            <li className="bg-[#1a1a64] hover:bg-black text-primary hover:text-primary hover:underline hover:border-xl rounded px-4 py-2"><button onClick={handleLogout}>Logout</button></li>
+            </>)}
         </ul>
         {/* Responsive Menu */}
         <ul

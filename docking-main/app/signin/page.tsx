@@ -30,7 +30,7 @@ const Page = () => {
 
             if (response.ok) {
                 const responseBody = await response.json();
-                const sessionToken = responseBody.accessToken;
+                const sessionToken: string = responseBody.content.accessToken;
                 cookies.set('jwt_authorization', sessionToken)
 
                 setShowModal(true);
