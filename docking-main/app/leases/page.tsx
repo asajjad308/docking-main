@@ -125,8 +125,6 @@ function Leases() {
             ))}
           </tbody>
         </table>
-        {/* <DataTable columns={columns} data={propertyData}/> */}
-        {/* <DataTable columns={columns} data={propertyData} /> */}
       </div>
     </div>
   </>)

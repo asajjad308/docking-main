@@ -4,7 +4,7 @@ import Nav from './components/Nav';
 import './globals.css';
 import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { SessionProvider } from 'next-auth/react';
+import SessionProvider from './context/SessionContext';
 import Head from 'next/head';
 
 const inter = Inter({ subsets: ['latin'] });

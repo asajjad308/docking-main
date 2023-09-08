@@ -1,18 +1,29 @@
 "use client"
 import Link from 'next/link';
-import React, { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { FaFacebookF, FaLinkedinIn, FaGoogle, FaEnvelope } from 'react-icons/fa';
 import { MdLockOutline } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
 import Modal from '../components/Modal';
 import Cookies from 'universal-cookie';
+import { AiFillEye } from 'react-icons/ai';
+import { useSession } from '../context/SessionContext';
 
 const Page = () => {
+    const cookies = new Cookies();
+    const navigate = useRouter();
+    const session = useSession();
+    const [alreadyLoggedIn, setAlreadyLoggedIn] = useState(false)
+    useEffect(() => {
+        if (session?.session) {
+            setAlreadyLoggedIn(true);
+        }
+    }, [])
+
     const [userName, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showModal, setShowModal] = useState(false);
-    const navigate = useRouter();
-    const cookies = new Cookies();
+    const [showPassword, setShowPassword] = useState(false)
     const handleSubmission = async (e: FormEvent) => {
         e.preventDefault(); // Prevent form submission and page refresh
         try {
@@ -32,11 +43,12 @@ const Page = () => {
                 const responseBody = await response.json();
                 const sessionToken: string = responseBody.content.accessToken;
                 cookies.set('jwt_authorization', sessionToken)
-
+                session?.setSession(sessionToken)
                 setShowModal(true);
                 setTimeout(() => {
                     setShowModal(false);
                 }, 2000);
+
                 navigate.replace('/');
 
             } else {
@@ -48,17 +60,17 @@ const Page = () => {
     };
 
     return (
-        <main className='flex flex-col items-center justify-center w-full flex-1 text-center min-h-screen py-2 bg-[#faf7f2]   '>
+        <main className='overflow-x-hidden flex flex-col items-center justify-center w-full flex-1 text-center min-h-screen py-2 bg-[#faf7f2]   '>
             <div className="relative h-[400px] flex bg-cover bg-center text-primary opacity-90" style={{ backgroundImage: "url('/images/docks.jpg')" }}>
                 <div className="absolute inset-0 bg-optional opacity-60"></div> {/* Semi-dark overlay */}
-                <div className="relative  z-10 flex flex-col items-center justify-center">
+                <div className="relative w-screen z-10 flex flex-col items-center justify-center">
                     <h1 className="text-4xl font-bold mb-4">Login Page</h1>
-                    <p className="text-lg w-[50%] text-center">
+                    {/* <p className="text-lg w-[50%] text-center">
                         Providing Docking Leasing and Rental Services in Umeå. Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                    </p>
+                    </p> */}
                 </div>
             </div>
-            <form onSubmit={handleSubmission}>
+            <form onSubmit={handleSubmission} className='z-10 mt-[-20%]'>
                 <div className='bg-primary flex flex-col md:flex-row rounded-2xl shadow-2xl my-20  md:w-full md:max-w-4xl '>
                     {/* sign in section */}
                     <div className='w-full md:w-3/5 p-5 '>
@@ -93,7 +105,12 @@ const Page = () => {
 
                                 <div className='bg-[#edf2f7] w-64 p-2 flex items-center '>
                                     <MdLockOutline className='text-[#a0aec0] mr-2' />
-                                    <input type='password' name='password' placeholder='Password' onChange={e => setPassword(e.target.value)} className='bg-[#edf2f7] outline-none text-sm flex-1  ' />
+                                    <input
+                                        type={`${showPassword ? 'text' : 'password'}`}
+                                        name='password' placeholder='Password' onChange={e => setPassword(e.target.value)} className='bg-[#edf2f7] outline-none text-sm flex-1' />
+                                    <button onClick={() => setShowPassword(!showPassword)}>
+                                        <AiFillEye className='text-[#a0aec0] mr-2' />
+                                    </button>
                                 </div>
 
                                 <div className='flex w-64 mb-5 justify-between mt-2 md:mt-0'>
