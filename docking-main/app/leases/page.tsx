@@ -51,7 +51,10 @@ function Leases() {
 
       if (response.ok) {
         setLoading(false);
+       
+        
         setResponse({ message: "Your product has been added successfully.", ok: true });
+         
       } else {
         setLoading(false);
         console.error(response);
