@@ -6,6 +6,7 @@ import $ from 'jquery';
 import 'datatables.net';
 import jwt from 'jwt-decode'
 import Cookies from 'universal-cookie';
+import getSession from '../../lib/session';
 
 function Rentals() {
   useEffect(() => {
@@ -15,7 +16,7 @@ function Rentals() {
       dataTable.destroy();
     }
   }, []);
-  const session: User = jwt(new Cookies().get('jwt_authorization'))
+  const session = getSession();
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState({ message: '', ok: false });
@@ -39,14 +40,12 @@ function Rentals() {
     setLoading(true);
     setResponse({ message: "", ok: false });
     const jwtAuthorization = cookies.get('jwt_authorization');
-    console.log(jwtAuthorization)
     try {
       const response = await fetch('https://localhost:7064/api/Products', {
         method: 'POST',
-       
         credentials:'include',
         headers: {
-          'Authorization': `Bearer ${jwtAuthorization}`, // Include the JWT in the Authorization header
+          'Authorization': `Bearer ${jwtAuthorization}`,
           'Content-Type': 'application/json'
       },
         body: JSON.stringify({ id: 0, address, location, rentPerMonth, spaceNumber, status, contractDate, available, addedDate,category:'Rentals' })
@@ -90,7 +89,7 @@ function Rentals() {
             <p className='md:w-1/2 text-lg '>Explore available rental docking spaces for your convenience. write abaout some rules and regulation or procedure</p>
           </div>
           <div className='md:w-1/2 flex justify-end items-end'>
-            {(session?.email == 'zia@gmail.com') && (
+            {((session && session?.email) == 'zia@gmail.com') && (
             <button className="bg-[#1a1a64] active:bg-[#1a1a1a] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" 
             style={{color: "white"}} 
             type="button" onClick={() => setShowModal(true)} >Add New Rental</button>
