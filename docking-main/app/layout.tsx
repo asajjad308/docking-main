@@ -1,6 +1,7 @@
 'use client'
 import React from 'react';
 import Nav from './components/Nav';
+import Footer from './components/Footer';
 import './globals.css';
 import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -28,6 +29,7 @@ export default function RootLayout({
         <body className={inter.className}>
           <Nav initialActive={undefined} /> {/* Include the Navbar component */}
           {children}
+          <Footer />
         </body>
       </html>
     </SessionProvider>

@@ -6,6 +6,7 @@ import $ from 'jquery';
 import 'datatables.net';
 import getSession from '../../lib/session';
 import Cookies from 'universal-cookie';
+import Link from 'next/link';
 function Leases() {
   useEffect(() => {
     const dataTable = $('#myTable').DataTable();
@@ -115,9 +116,9 @@ function Leases() {
               <tr key={id} className="bg-white border-t border-[#c0c0c0]">
                 <td className="px-4 py-2">{id}</td>
                 <td className="px-4 py-2">
-                  <a href={`/property/${id}`} className="text-[#5d5df4] hover:underline" >
+                  <Link href={`/property/${id}`} className="text-[#5d5df4] hover:underline" >
                     {address}
-                  </a>
+                  </Link>
                 </td>
                 <td className="px-4 py-2">{location}</td>
                 <td className="px-4 py-2">{rentPerMonth}</td>

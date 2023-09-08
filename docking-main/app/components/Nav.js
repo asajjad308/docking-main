@@ -3,6 +3,7 @@ import React, { useState, useRef } from "react";
 import Link from "next/link";
 import Popup from "./Popup";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { useSession } from "../context/SessionContext";
 import { destorySession } from "../../lib/session";
 function Nav({ initialActive }) {
   const [toggle, setToggle] = useState(false);
@@ -15,6 +16,8 @@ function Nav({ initialActive }) {
   function handleLogout() {
     destorySession();
   }
+  const session = useSession();
+
   function closePopupHandler(e) {
     setShowPopup(false);
     change(e);
