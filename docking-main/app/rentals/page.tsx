@@ -48,7 +48,7 @@ function Rentals() {
           'Authorization': `Bearer ${jwtAuthorization}`,
           'Content-Type': 'application/json'
       },
-        body: JSON.stringify({ id: 0, address, location, rentPerMonth, spaceNumber, status, contractDate, available, addedDate })
+        body: JSON.stringify({ id: 0, address, location, rentPerMonth, spaceNumber, status, contractDate, available, addedDate,category:'Rentals' })
       });
 
       if (response.ok) {
