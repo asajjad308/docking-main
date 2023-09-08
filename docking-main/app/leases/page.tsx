@@ -46,7 +46,7 @@ function Leases() {
           'Authorization': `Bearer ${jwtAuthorization}`, // Include the JWT in the Authorization header
           'Content-Type': 'application/json'
       },
-        body: JSON.stringify({ id: 0, address, location, rentPerMonth, spaceNumber, status, contractDate, available, addedDate })
+        body: JSON.stringify({ id: 0, address, location, rentPerMonth, spaceNumber, status, contractDate, available, addedDate,category:'Leases' })
       });
 
       if (response.ok) {
