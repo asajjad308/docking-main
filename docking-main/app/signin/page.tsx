@@ -44,9 +44,7 @@ const Page = () => {
                 const sessionToken: string = responseBody.content.accessToken;
                 cookies.set('jwt_authorization', sessionToken)
                 session?.setSession(sessionToken)
-
                 window.location.href = '/';
-
                 setShowModal(true);
                 setTimeout(() => {
                     setShowModal(false);

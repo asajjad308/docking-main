@@ -1,5 +1,3 @@
-// Nav.js
-
 "use client";
 import React, { useState, useRef } from "react";
 import Link from "next/link";
@@ -12,17 +10,13 @@ function Nav({ initialActive }) {
   const [active, setActive] = useState(initialActive);
   const [showPopup, setShowPopup] = useState(false);
   const navRef = useRef(null);
-  const session = useSession();
   const open = () => {
     setToggle(!toggle);
   };
   function handleLogout() {
     destorySession();
   }
-  function showPopupHandler(e) {
-    setShowPopup(true);
-    change(e);
-  }
+  const session = useSession();
 
   function closePopupHandler(e) {
     setShowPopup(false);
@@ -68,10 +62,7 @@ function Nav({ initialActive }) {
             </Link>
           </li>
           <li className=" hover:bg-[#1a1a64] hover:text-primary hover:border-xl rounded p-2 ">
-            <Link href="/contact" id="3" onClick={change} className={active === 3 ? "bg-secondary" : ""}
-            >
-              Contact us
-            </Link>
+            <Link href="/contact" id="3" onClick={change} className={active === 3 ? "bg-secondary" : ""}>Contact us</Link>
           </li>
           <li className=" hover:bg-[#1a1a64] hover:text-primary hover:border-xl rounded p-2 ">
             <Link href="/about" id="4" onClick={change} className={active === 4 ? "bg-secondary" : ""}>
@@ -81,15 +72,16 @@ function Nav({ initialActive }) {
         </ul>
 
         <ul className="hidden md:flex text-white gap-10 ">
-          {(!session?.session.email) ? (<li className="bg-[#1a1a64] hover:bg-black text-primary hover:text-primary hover:underline hover:border-xl rounded px-4 py-2">
+          {(session?.session.email) ? (<>
+            <li className="hover:bg-black text-black hover:text-[#1a1a64] hover:underline hover:border-xl rounded px-4 py-2">{session.session.email}</li>
+            <li className="bg-[#1a1a64] hover:bg-black text-primary hover:text-primary hover:underline hover:border-xl rounded px-4 py-2"><button onClick={handleLogout}>Logout</button></li>
+            </>) : (
+            <li className="bg-[#1a1a64] hover:bg-black text-primary hover:text-primary hover:underline hover:border-xl rounded px-4 py-2">
             <Link href="/signin" id="5" onClick={change} className={active === 5 ? "bg-secondary" : ""}>
               Login
             </Link>
-          </li>) : (
-            <div className="flex">
-            <li className="hover:bg-black text-black hover:text-[#1a1a64] hover:underline hover:border-xl rounded px-4 py-2">{session.session.email}</li>
-            <li className="bg-[#1a1a64] hover:bg-black text-primary hover:text-primary hover:underline hover:border-xl rounded px-4 py-2"><button onClick={handleLogout}>Logout</button></li>
-            </div>)}
+          </li>
+            )}
         </ul>
         {/* Responsive Menu */}
         <ul
