@@ -18,7 +18,8 @@ export default function DataModal(props: ModalProps) {
     const buttonClass = loading ? 'bg-gray-900' : 'bg-[#1a1a64]';
     return (
         <>
-            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none ">
+                <div className="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity" style={{opacity: 0.75}}></div>
                 <div className="relative w-auto my-6 mx-auto max-w-3xl">
                     {/*content*/}
                     <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none focus:outline-none" style={{ background: 'white' }}>
@@ -40,10 +41,10 @@ export default function DataModal(props: ModalProps) {
                             <>
                                 <div className="relative p-6 flex-auto">
                                     {(response.message.length > 1 && response.ok) && (
-                                    <div className="bg-green-500 border-t-4 border-blue-500 rounded-b text-blue-900 px-4 py-3 shadow-md w-full" role="alert">
-                                        <p className="font-bold">Success!</p>
-                                        <p className="text-sm">Your product has been added sucessfully.</p>
-                                    </div>
+                                        <div className="bg-green-500 border-t-4 border-blue-500 rounded-b text-blue-900 px-4 py-3 shadow-md w-full" role="alert">
+                                            <p className="font-bold">Success!</p>
+                                            <p className="text-sm">Your product has been added sucessfully.</p>
+                                        </div>
                                     )}
                                     <h2>Add Product</h2>
                                 </div>
