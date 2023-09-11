@@ -11,7 +11,7 @@ export default function getSession(){
     return false;
 }
 
-export function destorySession () {
+export function destroySession () {
     cookies.remove("jwt_authorization");
     window.location.reload();
     return true;
