@@ -73,7 +73,7 @@ function Nav({ initialActive }) {
 
         <ul className="hidden md:flex text-white gap-10 ">
           {(session?.session.email) ? (<>
-            <li className="hover:bg-black text-black hover:text-[#1a1a64] hover:underline hover:border-xl rounded px-4 py-2">{session.session.email}</li>
+            <li className="hover:bg-black text-black text-[#1a1a64] hover:underline hover:border-xl rounded px-4 py-2">{session.session.email}</li>
             <li className="bg-[#1a1a64] hover:bg-black text-primary hover:text-primary hover:underline hover:border-xl rounded px-4 py-2"><button onClick={handleLogout}>Logout</button></li>
             </>) : (
             <li className="bg-[#1a1a64] hover:bg-black text-primary hover:text-primary hover:underline hover:border-xl rounded px-4 py-2">
